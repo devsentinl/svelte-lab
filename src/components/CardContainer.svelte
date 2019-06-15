@@ -5,8 +5,8 @@
   import CardImg from "./CardImg.svelte";
   import CardButton from "./CardButton.svelte";
 
-  let temp="001";
-    let name="oscar javier";
+  let temp="";
+  let name="";
 </script>
 
 <style>
@@ -22,6 +22,8 @@
     grid-gap: 0.5rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    width: 70%;
+    margin: auto;
   }
   .card-content-btn {
     grid-column: 2;
@@ -33,11 +35,12 @@
   .card-content-title {
     grid-column: span 2;
   }
+  
 </style>
 
 <div class="card-container">
   <div class="card-content-title">Nuevo método de pago</div>
-  <CardImg bind:value={temp} bind:name={name}/>
+  <CardImg bind:value={temp} bind:name={name} />
   <div class="card-content-group">
     <InputCard bind:value={temp} />
     <div class="input-group">

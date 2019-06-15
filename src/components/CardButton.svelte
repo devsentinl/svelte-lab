@@ -6,7 +6,7 @@
     margin: 0;
     padding: .5rem;
     border-radius: .5rem;
-    background-color: green;
+    background-color: #5CB130;
     color: white;
     border: none;
     width: 100%;
