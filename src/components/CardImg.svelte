@@ -1,52 +1,70 @@
 <script>
-export let value;
-export let name;
-export let style;
+  export let tarjeta;
 </script>
 
 <style>
-.tarjeta{
-    border-radius: .5rem;
-    width: 100%;
+  .tarjeta {
     height: 100%;
-    background-color: #CCB375;
-    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #ccb375;
+    padding: 0.5rem;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 1fr 1fr;
-}
-.tarjeta-visa{
-    border-radius: .5rem;
-    width: 100%;
-    height: 100%;
-    background-color: #7FB4E2;
-    padding: 1rem;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 1fr 1fr;
-}
-.span2{
-        grid-column: span 2;
-}
-.img-logovisa{
-    background-image: url(./img/visa.svg);
+    grid-template-rows: auto;
+    grid-auto-rows: 20px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+      0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  }
+  .tarjeta-mastercard {
+    background-color: #ccb375;
+  }
+  .tarjeta-visa {
+    background-color: #7fb4e2;
+  }
+  .span2 {
+    grid-column: span 2;
+  }
+  .img-tarjeta {
+    background-image: url(./img/tarjeta.svg);
     background-repeat: no-repeat;
-}
-.img-logomastercard{
-    background-image: url(./img/mastercard.svg);
-    background-repeat: no-repeat;
-}
-.img-tarjeta{
-background-image: url(./img/tarjeta.svg);
-    background-repeat: no-repeat;
-}
+  }
+  .size12 {
+    font-size: 12px;
+  }
+  .tarjeta-logo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .logo-img {
+    height: 40px;
+  }
 </style>
 
-<div class="{value.substring(0,1)=="4"?"tarjeta-visa":"tarjeta"}" >
-    <div class="img-tarjeta"></div>
-    <div class="{value.substring(0,1)=="4"?"img-logovisa":"img-logomastercard"}"></div>
-    <label for="" class="span2" >{value}</label>
-    <label for="" class="span2">{name}</label>
+<div
+  class="tarjeta {tarjeta.number.value.substring(0, 1) == '4' ? 'tarjeta-visa' : 'tarjeta-mastercard'}">
+  <div class="img-tarjeta" />
+  <div class="tarjeta-logo">
+    {#if tarjeta.number.value.substring(0, 1) == '4'}
+      <img src="./img/visa.svg" alt="" class="logo-img" />
+    {:else}
+      <img src="./img/mastercard.svg" alt="" class="logo-img" />
+    {/if}
+  </div>
+  <div class="span2 size12">
+    {#if tarjeta.number.value.length > 0}
+      {tarjeta.number.value.match(/.{1,4}/g).join(' ')}
+    {/if}
+  </div>
+  <div class="span2 size12">
+    {#if tarjeta.name.success}{tarjeta.name.value}{/if}
+  </div>
+  <div class="span2 size12">
+    {#if tarjeta.mm.success && tarjeta.aaaa.success}
+      {tarjeta.mm.value}
+      {#if tarjeta.aaaa.value.length > 0}/{tarjeta.aaaa.value}{/if}
+    {/if}
+  </div>
+
 </div>
